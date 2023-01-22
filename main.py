@@ -5,6 +5,7 @@ import customtkinter
 import os
 from PIL import Image
 from FireNext.NextDatabase import *
+from FireNext.NextTable import *
 
 
 class App(customtkinter.CTk):
@@ -31,6 +32,25 @@ class App(customtkinter.CTk):
         self.Query_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
         self.Delete_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
 
+        # Next Table Item Frame
+        self.Create_Table_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Read_Table_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Delete_Table_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Add_Col_Name_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Read_Col_Name_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Update_Col_Name_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Delete_Col_Name_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Add_Data_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Search_Data_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Update_Data_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Delete_Data_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Search_Row_Data_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Update_Row_Data_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Delete_Row_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Search_Column_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.Delete_Column_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+
+
         # create header frame
         self.header_frame = customtkinter.CTkFrame(self)
         self.header_frame.grid(row=0, column=0, sticky="nsew")
@@ -42,8 +62,8 @@ class App(customtkinter.CTk):
                                                            text="NextDatabase",
                                                            fg_color="transparent", text_color=("gray10", "gray90"),
                                                            hover_color=("gray70", "gray30"), anchor="w",
-                                                           font=("arial", 16)
-                                                           , command=self.NextDatabaseBtnEvent)
+                                                           font=("arial", 16),
+                                                           command=self.NextDatabaseBtnEvent)
 
         self.NextDatabase_button.grid(row=0, column=0, padx=(20, 0), pady=(1, 1), sticky="ew")
 
@@ -137,15 +157,17 @@ class App(customtkinter.CTk):
         self.txt_var = tkinter.StringVar(value="")
         self.Add_Input = customtkinter.CTkEntry(master=self.Add_frame, placeholder_text="Parent>Child>ValueChild:Value",
                                                 height=30,
-                                                font=("arial", 18), )
+                                                font=("arial", 18))
         self.Add_Input.grid(row=0, column=0, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
         self.NextDatabase_addBtn = customtkinter.CTkButton(master=self.Add_frame, text="Add", font=("arial", 18),
                                                            width=120, height=30, command=self.addBtn)
         self.NextDatabase_addBtn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
 
         self.NextDatabase_add_result = customtkinter.CTkTextbox(master=self.Add_frame, wrap="none", corner_radius=0,
-                                                                border_width=0, font=("arial", 18))
+                                                                border_width=0, font=("Terminal", 18))
         self.NextDatabase_add_result.grid(row=1, column=1, columnspan=2, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
         self.NextDatabase_add_result.configure(state='disabled')
 
         # Next Database Read Interface
@@ -163,7 +185,7 @@ class App(customtkinter.CTk):
         self.NextDatabase_readBtn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
 
         self.NextDatabase_read_result = customtkinter.CTkTextbox(master=self.Read_frame, wrap="none", corner_radius=0,
-                                                                 border_width=0, font=("arial", 18))
+                                                                 border_width=0, font=("Terminal", 18))
         self.NextDatabase_read_result.grid(row=1, column=1, columnspan=2, padx=(20, 20), pady=(0, 20), sticky="nsew")
         self.NextDatabase_read_result.configure(state='disabled')
 
@@ -183,7 +205,7 @@ class App(customtkinter.CTk):
         self.NextDatabase_childBtn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
 
         self.NextDatabase_child_result = customtkinter.CTkTextbox(master=self.Child_frame, wrap="none", corner_radius=0,
-                                                                  border_width=0, font=("arial", 18))
+                                                                  border_width=0, font=("Terminal", 18))
         self.NextDatabase_child_result.grid(row=1, column=1, columnspan=2, padx=(20, 20), pady=(0, 20), sticky="nsew")
         self.NextDatabase_child_result.configure(state='disabled')
 
@@ -202,7 +224,7 @@ class App(customtkinter.CTk):
         self.NextDatabase_queryBtn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
 
         self.NextDatabase_query_result = customtkinter.CTkTextbox(master=self.Query_frame, wrap="none", corner_radius=0,
-                                                                  border_width=0, font=("arial", 18))
+                                                                  border_width=0, font=("Terminal", 18))
         self.NextDatabase_query_result.grid(row=1, column=1, columnspan=2, padx=(20, 20), pady=(0, 20), sticky="nsew")
         self.NextDatabase_query_result.configure(state='disabled')
 
@@ -222,7 +244,7 @@ class App(customtkinter.CTk):
 
         self.NextDatabase_delete_result = customtkinter.CTkTextbox(master=self.Delete_frame, wrap="none",
                                                                    corner_radius=0,
-                                                                   border_width=0, font=("arial", 18))
+                                                                   border_width=0, font=("Terminal", 18))
         self.NextDatabase_delete_result.grid(row=1, column=1, columnspan=2, padx=(20, 20), pady=(0, 20), sticky="nsew")
         self.NextDatabase_delete_result.configure(state='disabled')
 
@@ -258,8 +280,8 @@ class App(customtkinter.CTk):
                                                     fg_color="transparent",
                                                     text_color=("gray10", "gray90"),
                                                     hover_color=("gray70", "gray30"),
-                                                    anchor="w",
-                                                    border_spacing=8, width=200)
+                                                    anchor="w", border_spacing=8, width=200,
+                                                    command=self.Create_Table_Btn)
         self.Create_Table.grid(row=0, padx=(0, 0), pady=(0, 1))
 
         self.Read_Table = customtkinter.CTkButton(master=self.NextTable_frame,
@@ -268,8 +290,8 @@ class App(customtkinter.CTk):
                                                   fg_color="transparent",
                                                   text_color=("gray10", "gray90"),
                                                   hover_color=("gray70", "gray30"),
-                                                  anchor="w",
-                                                  border_spacing=8, width=200)
+                                                  anchor="w", border_spacing=8, width=200,
+                                                  command=self.Read_Table_Btn)
         self.Read_Table.grid(row=1, padx=(0, 0), pady=(0, 1))
 
         self.Delete_Table = customtkinter.CTkButton(master=self.NextTable_frame, text="Delete Table",
@@ -277,8 +299,8 @@ class App(customtkinter.CTk):
                                                     fg_color="transparent",
                                                     text_color=("gray10", "gray90"),
                                                     hover_color=("gray70", "gray30"),
-                                                    anchor="w",
-                                                    border_spacing=8, width=200)
+                                                    anchor="w", border_spacing=8, width=200,
+                                                    command=self.Delete_Table_Btn)
         self.Delete_Table.grid(row=2, padx=(0, 0), pady=(0, 1))
 
         self.Add_Col_Name = customtkinter.CTkButton(master=self.NextTable_frame, text="Add Column Name",
@@ -286,8 +308,8 @@ class App(customtkinter.CTk):
                                                     fg_color="transparent",
                                                     text_color=("gray10", "gray90"),
                                                     hover_color=("gray70", "gray30"),
-                                                    anchor="w",
-                                                    border_spacing=8, width=200)
+                                                    anchor="w", border_spacing=8, width=200,
+                                                    command=self.Add_Col_Name_Btn)
         self.Add_Col_Name.grid(row=3, padx=(0, 0), pady=(0, 1))
 
         self.Read_Col_Name = customtkinter.CTkButton(master=self.NextTable_frame, text="Read Column Name",
@@ -295,8 +317,8 @@ class App(customtkinter.CTk):
                                                      fg_color="transparent",
                                                      text_color=("gray10", "gray90"),
                                                      hover_color=("gray70", "gray30"),
-                                                     anchor="w",
-                                                     border_spacing=8, width=200)
+                                                     anchor="w", border_spacing=8, width=200,
+                                                     command=self.Read_Col_Name_Btn)
         self.Read_Col_Name.grid(row=4, padx=(0, 0), pady=(0, 1))
 
         self.Update_Col_Name = customtkinter.CTkButton(master=self.NextTable_frame, text="Update Column Name",
@@ -304,8 +326,8 @@ class App(customtkinter.CTk):
                                                        fg_color="transparent",
                                                        text_color=("gray10", "gray90"),
                                                        hover_color=("gray70", "gray30"),
-                                                       anchor="w",
-                                                       border_spacing=8, width=200)
+                                                       anchor="w", border_spacing=8, width=200,
+                                                       command=self.Update_Col_Name_Btn)
         self.Update_Col_Name.grid(row=5, padx=(0, 0), pady=(0, 1))
 
         self.Delete_Col_Name = customtkinter.CTkButton(master=self.NextTable_frame, text="Delete Column Name",
@@ -313,8 +335,8 @@ class App(customtkinter.CTk):
                                                        fg_color="transparent",
                                                        text_color=("gray10", "gray90"),
                                                        hover_color=("gray70", "gray30"),
-                                                       anchor="w",
-                                                       border_spacing=8, width=200)
+                                                       anchor="w", border_spacing=8, width=200,
+                                                       command=self.Delete_Col_Name_Btn)
         self.Delete_Col_Name.grid(row=6, padx=(0, 0), pady=(0, 1))
 
         self.Add_Data = customtkinter.CTkButton(master=self.NextTable_frame, text="Add Data",
@@ -322,8 +344,8 @@ class App(customtkinter.CTk):
                                                 fg_color="transparent",
                                                 text_color=("gray10", "gray90"),
                                                 hover_color=("gray70", "gray30"),
-                                                anchor="w",
-                                                border_spacing=8, width=200)
+                                                anchor="w", border_spacing=8, width=200,
+                                                command=self.Add_Data_Btn)
         self.Add_Data.grid(row=7, padx=(0, 0), pady=(0, 1))
 
         self.Search_Data = customtkinter.CTkButton(master=self.NextTable_frame, text="Search Data",
@@ -331,8 +353,8 @@ class App(customtkinter.CTk):
                                                    fg_color="transparent",
                                                    text_color=("gray10", "gray90"),
                                                    hover_color=("gray70", "gray30"),
-                                                   anchor="w",
-                                                   border_spacing=8, width=200)
+                                                   anchor="w", border_spacing=8, width=200,
+                                                   command=self.Search_Data_Btn)
         self.Search_Data.grid(row=8, padx=(0, 0), pady=(0, 1))
 
         self.Update_Data = customtkinter.CTkButton(master=self.NextTable_frame, text="Update Data",
@@ -340,8 +362,8 @@ class App(customtkinter.CTk):
                                                    fg_color="transparent",
                                                    text_color=("gray10", "gray90"),
                                                    hover_color=("gray70", "gray30"),
-                                                   anchor="w",
-                                                   border_spacing=8, width=200)
+                                                   anchor="w", border_spacing=8, width=200,
+                                                   command=self.Update_Data_Btn)
         self.Update_Data.grid(row=9, padx=(0, 0), pady=(0, 1))
 
         self.Delete_Data = customtkinter.CTkButton(master=self.NextTable_frame, text="Delete Data",
@@ -349,58 +371,591 @@ class App(customtkinter.CTk):
                                                    fg_color="transparent",
                                                    text_color=("gray10", "gray90"),
                                                    hover_color=("gray70", "gray30"),
-                                                   anchor="w",
-                                                   border_spacing=8, width=200)
+                                                   anchor="w", border_spacing=8, width=200,
+                                                   command=self.Delete_Data_Btn)
         self.Delete_Data.grid(row=10, padx=(0, 0), pady=(0, 1))
 
-        self.Search_Row_Data = customtkinter.CTkButton(master=self.NextTable_frame, text="Search Row Data",
+        self.Search_Row = customtkinter.CTkButton(master=self.NextTable_frame, text="Search Row Data",
                                                        corner_radius=0, font=("arial", 16),
                                                        fg_color="transparent",
                                                        text_color=("gray10", "gray90"),
                                                        hover_color=("gray70", "gray30"),
-                                                       anchor="w",
-                                                       border_spacing=8, width=200)
-        self.Search_Row_Data.grid(row=11, padx=(0, 0), pady=(0, 1))
+                                                       anchor="w", border_spacing=8, width=200,
+                                                       command=self.Search_Row_Btn)
+        self.Search_Row.grid(row=11, padx=(0, 0), pady=(0, 1))
 
-        self.Update_Row_Data = customtkinter.CTkButton(master=self.NextTable_frame, text="Update Row Data",
+        self.Update_Row = customtkinter.CTkButton(master=self.NextTable_frame, text="Update Row Data",
                                                        corner_radius=0, font=("arial", 16),
                                                        fg_color="transparent",
                                                        text_color=("gray10", "gray90"),
                                                        hover_color=("gray70", "gray30"),
-                                                       anchor="w",
-                                                       border_spacing=8, width=200)
-        self.Update_Row_Data.grid(row=12, padx=(0, 0), pady=(0, 1))
+                                                       anchor="w", border_spacing=8, width=200,
+                                                       command=self.Update_Row_Btn)
+        self.Update_Row.grid(row=12, padx=(0, 0), pady=(0, 1))
 
         self.Delete_Row = customtkinter.CTkButton(master=self.NextTable_frame, text="Delete Row",
                                                   corner_radius=0, font=("arial", 16),
                                                   fg_color="transparent",
                                                   text_color=("gray10", "gray90"),
                                                   hover_color=("gray70", "gray30"),
-                                                  anchor="w",
-                                                  border_spacing=8, width=200)
+                                                  anchor="w", border_spacing=8, width=200,
+                                                  command=self.Delete_Row_Btn)
         self.Delete_Row.grid(row=13, padx=(0, 0), pady=(0, 1))
 
-        self.Search_Col_Data = customtkinter.CTkButton(master=self.NextTable_frame, text="Search Column Data",
+        self.Search_Column = customtkinter.CTkButton(master=self.NextTable_frame, text="Search Column Data",
                                                        corner_radius=0, font=("arial", 16),
                                                        fg_color="transparent",
                                                        text_color=("gray10", "gray90"),
                                                        hover_color=("gray70", "gray30"),
-                                                       anchor="w",
-                                                       border_spacing=8, width=200)
-        self.Search_Col_Data.grid(row=14, padx=(0, 0), pady=(0, 1))
+                                                       anchor="w", border_spacing=8, width=200,
+                                                       command=self.Search_Col_Btn)
+        self.Search_Column.grid(row=14, padx=(0, 0), pady=(0, 1))
 
-        self.Delete_Col = customtkinter.CTkButton(master=self.NextTable_frame, text="Delete Column",
+        self.Delete_Column = customtkinter.CTkButton(master=self.NextTable_frame, text="Delete Column",
                                                   corner_radius=0, font=("arial", 16),
                                                   fg_color="transparent",
                                                   text_color=("gray10", "gray90"),
                                                   hover_color=("gray70", "gray30"),
-                                                  anchor="w",
-                                                  border_spacing=8, width=200)
+                                                  anchor="w", border_spacing=8, width=200,
+                                                  command=self.Delete_Col_Btn)
 
-        self.Delete_Col.grid(row=15, padx=(0, 0), pady=(0, 1))
+        self.Delete_Column.grid(row=15, padx=(0, 0), pady=(0, 1))
+
+        # Next Table Create Table Interface
+        self.Create_Table_frame.grid_columnconfigure(1, weight=1)
+        self.Create_Table_frame.grid_rowconfigure(1, weight=1)
+
+        self.Create_Table_Input = customtkinter.CTkEntry(master=self.Create_Table_frame, placeholder_text="Table Name",
+                                                height=30,
+                                                font=("arial", 18))
+        self.Create_Table_Input.grid(row=0, column=0, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Create_Table_Btn = customtkinter.CTkButton(master=self.Create_Table_frame, text="Create Table", font=("arial", 18),
+                                                           width=120, height=30, command=self.create_table_btn)
+        self.Create_Table_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Create_Table_result = customtkinter.CTkTextbox(master=self.Create_Table_frame, wrap="none", corner_radius=0,
+                                                                border_width=0, font=("Terminal", 18))
+        self.Create_Table_result.grid(row=1, column=1, columnspan=2, padx=(20, 20), pady=(0, 20), sticky="nsew")
+        self.Create_Table_result.configure(state='disabled')
+
+        # Next Table Read Table Interface
+        self.Read_Table_frame.grid_columnconfigure(1, weight=1)
+        self.Read_Table_frame.grid_rowconfigure(1, weight=1)
+
+        self.Read_Table_Input = customtkinter.CTkEntry(master=self.Read_Table_frame, placeholder_text="Table Name",
+                                                         height=30,
+                                                         font=("arial", 18))
+        self.Read_Table_Input.grid(row=0, column=0, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Read_Table_Btn = customtkinter.CTkButton(master=self.Read_Table_frame, text="Read Table",
+                                                        font=("arial", 18),
+                                                        width=120, height=30, command=self.read_table_btn)
+        self.Read_Table_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Read_Table_result = customtkinter.CTkTextbox(master=self.Read_Table_frame, wrap="none",
+                                                            corner_radius=0,
+                                                            border_width=0, font=("Terminal", 18))
+        self.Read_Table_result.grid(row=1, column=1, columnspan=2, padx=(20, 20), pady=(0, 20), sticky="nsew")
+        self.Read_Table_result.configure(state='disabled')
+
+        # Next Table Delete Table Interface
+        self.Delete_Table_frame.grid_columnconfigure(1, weight=1)
+        self.Delete_Table_frame.grid_rowconfigure(1, weight=1)
+
+        self.Delete_Table_Input = customtkinter.CTkEntry(master=self.Delete_Table_frame, placeholder_text="Table Name",
+                                                       height=30,
+                                                       font=("arial", 18))
+        self.Delete_Table_Input.grid(row=0, column=0, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Table_Btn = customtkinter.CTkButton(master=self.Delete_Table_frame, text="Delete Table",
+                                                      font=("arial", 18),
+                                                      width=120, height=30, command=self.delete_table_btn)
+        self.Delete_Table_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Delete_Table_result = customtkinter.CTkTextbox(master=self.Delete_Table_frame, wrap="none",
+                                                          corner_radius=0,
+                                                          border_width=0, font=("Terminal", 18))
+        self.Delete_Table_result.grid(row=1, column=1, columnspan=2, padx=(20, 20), pady=(0, 20), sticky="nsew")
+        self.Delete_Table_result.configure(state='disabled')
+
+        # Next Table Add Column Name Interface
+        self.Add_Col_Name_frame.grid_columnconfigure(1, weight=1)
+        self.Add_Col_Name_frame.grid_rowconfigure(1, weight=1)
+
+        self.Add_Col_Name_Input1 = customtkinter.CTkEntry(master=self.Add_Col_Name_frame, placeholder_text="Table Name",
+                                                         height=30,
+                                                         font=("arial", 18), width=300)
+        self.Add_Col_Name_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Add_Col_Name_Input2 = customtkinter.CTkEntry(master=self.Add_Col_Name_frame, placeholder_text="Column Name",
+                                                         height=30,
+                                                         font=("arial", 18))
+        self.Add_Col_Name_Input2.grid(row=0, column=1, columnspan=1,  padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Add_Col_Name_Btn = customtkinter.CTkButton(master=self.Add_Col_Name_frame, text="Add Column Name",
+                                                        font=("arial", 18),
+                                                        width=120, height=30, command=self.add_col_name_btn)
+        self.Add_Col_Name_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Add_Col_Name_result = customtkinter.CTkTextbox(master=self.Add_Col_Name_frame, wrap="none",
+                                                            corner_radius=0,
+                                                            border_width=0, font=("Terminal", 18))
+        self.Add_Col_Name_result.grid(row=1, column=0,  columnspan=4, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Add_Col_Name_result.configure(state='disabled')
+
+        # Next Table Read Column Name Interface
+        self.Read_Col_Name_frame.grid_columnconfigure(1, weight=1)
+        self.Read_Col_Name_frame.grid_rowconfigure(1, weight=1)
+
+        self.Read_Col_Name_Input = customtkinter.CTkEntry(master=self.Read_Col_Name_frame, placeholder_text="Table Name",
+                                                       height=30,
+                                                       font=("arial", 18))
+        self.Read_Col_Name_Input.grid(row=0, column=0, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Read_Col_Name_Btn = customtkinter.CTkButton(master=self.Read_Col_Name_frame, text="Read Column Name",
+                                                      font=("arial", 18),
+                                                      width=120, height=30, command=self.read_col_name_btn)
+        self.Read_Col_Name_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Read_Col_Name_result = customtkinter.CTkTextbox(master=self.Read_Col_Name_frame, wrap="none",
+                                                          corner_radius=0,
+                                                          border_width=0, font=("Terminal", 18))
+        self.Read_Col_Name_result.grid(row=1, column=0, columnspan=4, padx=(20, 20), pady=(0, 20), sticky="nsew")
+        self.Read_Col_Name_result.configure(state='disabled')
+
+        # Next Table Update Column Name Interface
+        self.Update_Col_Name_frame.grid_columnconfigure(2, weight=1)
+        self.Update_Col_Name_frame.grid_rowconfigure(1, weight=1)
+
+        self.Update_Col_Name_Input1 = customtkinter.CTkEntry(master=self.Update_Col_Name_frame, placeholder_text="Table Name",
+                                                          height=30,
+                                                          font=("arial", 18), width=200)
+        self.Update_Col_Name_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Col_Name_Input2 = customtkinter.CTkEntry(master=self.Update_Col_Name_frame,
+                                                          placeholder_text="Old Column Name",
+                                                          height=30,
+                                                          font=("arial", 18), width=200)
+        self.Update_Col_Name_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Col_Name_Input3 = customtkinter.CTkEntry(master=self.Update_Col_Name_frame,
+                                                             placeholder_text="New Column Name",
+                                                             height=30,
+                                                             font=("arial", 18))
+        self.Update_Col_Name_Input3.grid(row=0, column=2, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Col_Name_Btn = customtkinter.CTkButton(master=self.Update_Col_Name_frame, text="Update Column Name",
+                                                        font=("arial", 18),
+                                                        width=120, height=30, command=self.update_col_name_btn)
+
+        self.Update_Col_Name_Btn.grid(row=0, column=4, padx=(20, 20), pady=(0, 0))
+
+        self.Update_Col_Name_result = customtkinter.CTkTextbox(master=self.Update_Col_Name_frame, wrap="none",
+                                                            corner_radius=0,
+                                                            border_width=0, font=("Terminal", 18))
+        self.Update_Col_Name_result.grid(row=1, column=0, columnspan=5, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Update_Col_Name_result.configure(state='disabled')
+
+        # Next Table Delete Column Name Interface
+        self.Delete_Col_Name_frame.grid_columnconfigure(1, weight=1)
+        self.Delete_Col_Name_frame.grid_rowconfigure(1, weight=1)
+
+        self.Delete_Col_Name_Input1 = customtkinter.CTkEntry(master=self.Delete_Col_Name_frame, placeholder_text="Table Name",
+                                                          height=30,
+                                                          font=("arial", 18), width=300)
+        self.Delete_Col_Name_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Col_Name_Input2 = customtkinter.CTkEntry(master=self.Delete_Col_Name_frame,
+                                                          placeholder_text="Column Name",
+                                                          height=30,
+                                                          font=("arial", 18))
+        self.Delete_Col_Name_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Col_Name_Btn = customtkinter.CTkButton(master=self.Delete_Col_Name_frame, text="Delete Column Name",
+                                                        font=("arial", 18),
+                                                        width=120, height=30, command=self.delete_col_name_btn)
+        self.Delete_Col_Name_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Delete_Col_Name_result = customtkinter.CTkTextbox(master=self.Delete_Col_Name_frame, wrap="none",
+                                                            corner_radius=0,
+                                                            border_width=0, font=("Terminal", 18))
+        self.Delete_Col_Name_result.grid(row=1, column=0, columnspan=4, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Delete_Col_Name_result.configure(state='disabled')
+
+        # Next Table Add Data Interface
+        self.Add_Data_frame.grid_columnconfigure(1, weight=1)
+        self.Add_Data_frame.grid_rowconfigure(1, weight=1)
+
+        self.Add_Data_Input1 = customtkinter.CTkEntry(master=self.Add_Data_frame,
+                                                             placeholder_text="Table Name",
+                                                             height=30,
+                                                             font=("arial", 18), width=300)
+        self.Add_Data_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Add_Data_Input2 = customtkinter.CTkEntry(master=self.Add_Data_frame,
+                                                             placeholder_text="Row Data",
+                                                             height=30,
+                                                             font=("arial", 18))
+        self.Add_Data_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Add_Data_Btn = customtkinter.CTkButton(master=self.Add_Data_frame, text="Add Data",
+                                                           font=("arial", 18),
+                                                           width=120, height=30, command=self.add_data_btn)
+        self.Add_Data_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Add_Data_result = customtkinter.CTkTextbox(master=self.Add_Data_frame, wrap="none",
+                                                               corner_radius=0,
+                                                               border_width=0, font=("Terminal", 18))
+        self.Add_Data_result.grid(row=1, column=0, columnspan=4, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Add_Data_result.configure(state='disabled')
+
+        # Next Table Search Data Interface
+        self.Search_Data_frame.grid_columnconfigure(2, weight=1)
+        self.Search_Data_frame.grid_rowconfigure(1, weight=1)
+
+        self.Search_Data_Input1 = customtkinter.CTkEntry(master=self.Search_Data_frame,
+                                                             placeholder_text="Table Name",
+                                                             height=30,
+                                                             font=("arial", 18), width=200)
+        self.Search_Data_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Search_Data_Input2 = customtkinter.CTkEntry(master=self.Search_Data_frame,
+                                                             placeholder_text="Row Id",
+                                                             height=30,
+                                                             font=("arial", 18), width=200)
+        self.Search_Data_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Search_Data_Input3 = customtkinter.CTkEntry(master=self.Search_Data_frame,
+                                                             placeholder_text="Column name",
+                                                             height=30,
+                                                             font=("arial", 18))
+        self.Search_Data_Input3.grid(row=0, column=2, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Search_Data_Btn = customtkinter.CTkButton(master=self.Search_Data_frame, text="Search Data",
+                                                           font=("arial", 18),
+                                                           width=120, height=30, command=self.search_data_btn)
+
+        self.Search_Data_Btn.grid(row=0, column=4, padx=(20, 20), pady=(0, 0))
+
+        self.Search_Data_result = customtkinter.CTkTextbox(master=self.Search_Data_frame, wrap="none",
+                                                               corner_radius=0,
+                                                               border_width=0, font=("Terminal", 18))
+        self.Search_Data_result.grid(row=1, column=0, columnspan=5, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Search_Data_result.configure(state='disabled')
+
+        # Next Table Update Data Interface
+        self.Update_Data_frame.grid_columnconfigure(3, weight=1)
+        self.Update_Data_frame.grid_rowconfigure(1, weight=1)
+
+        self.Update_Data_Input1 = customtkinter.CTkEntry(master=self.Update_Data_frame,
+                                                         placeholder_text="Table Name",
+                                                         height=30,
+                                                         font=("arial", 18), width=200)
+        self.Update_Data_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Data_Input2 = customtkinter.CTkEntry(master=self.Update_Data_frame,
+                                                         placeholder_text="Row Id",
+                                                         height=30,
+                                                         font=("arial", 18), width=200)
+        self.Update_Data_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Data_Input3 = customtkinter.CTkEntry(master=self.Update_Data_frame,
+                                                         placeholder_text="Column name",
+                                                         height=30,
+                                                         font=("arial", 18), width=200)
+        self.Update_Data_Input3.grid(row=0, column=2, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Data_Input4 = customtkinter.CTkEntry(master=self.Update_Data_frame,
+                                                         placeholder_text="New Column Data",
+                                                         height=30,
+                                                         font=("arial", 18))
+        self.Update_Data_Input4.grid(row=0, column=3, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Data_Btn = customtkinter.CTkButton(master=self.Update_Data_frame, text="Update Data",
+                                                       font=("arial", 18),
+                                                       width=120, height=30, command=self.update_data_btn)
+
+        self.Update_Data_Btn.grid(row=0, column=5, padx=(20, 20), pady=(0, 0))
+
+        self.Update_Data_result = customtkinter.CTkTextbox(master=self.Update_Data_frame, wrap="none",
+                                                           corner_radius=0,
+                                                           border_width=0, font=("Terminal", 18))
+        self.Update_Data_result.grid(row=1, column=0, columnspan=6, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Update_Data_result.configure(state='disabled')
+
+        # Next Table Delete Data Interface
+        self.Delete_Data_frame.grid_columnconfigure(2, weight=1)
+        self.Delete_Data_frame.grid_rowconfigure(1, weight=1)
+
+        self.Delete_Data_Input1 = customtkinter.CTkEntry(master=self.Delete_Data_frame,
+                                                         placeholder_text="Table Name",
+                                                         height=30,
+                                                         font=("arial", 18), width=200)
+        self.Delete_Data_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Data_Input2 = customtkinter.CTkEntry(master=self.Delete_Data_frame,
+                                                         placeholder_text="Row Id",
+                                                         height=30,
+                                                         font=("arial", 18), width=200)
+        self.Delete_Data_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Data_Input3 = customtkinter.CTkEntry(master=self.Delete_Data_frame,
+                                                         placeholder_text="Column name",
+                                                         height=30,
+                                                         font=("arial", 18))
+        self.Delete_Data_Input3.grid(row=0, column=2, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Data_Btn = customtkinter.CTkButton(master=self.Delete_Data_frame, text="Delete Data",
+                                                       font=("arial", 18),
+                                                       width=120, height=30, command=self.delete_data_btn)
+
+        self.Delete_Data_Btn.grid(row=0, column=4, padx=(20, 20), pady=(0, 0))
+
+        self.Delete_Data_result = customtkinter.CTkTextbox(master=self.Delete_Data_frame, wrap="none",
+                                                           corner_radius=0,
+                                                           border_width=0, font=("Terminal", 18))
+        self.Delete_Data_result.grid(row=1, column=0, columnspan=5, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Delete_Data_result.configure(state='disabled')
+
+        # Next Table Search Row Data Interface
+        self.Search_Row_Data_frame.grid_columnconfigure(1, weight=1)
+        self.Search_Row_Data_frame.grid_rowconfigure(1, weight=1)
+
+        self.Search_Row_Data_Input1 = customtkinter.CTkEntry(master=self.Search_Row_Data_frame,
+                                                      placeholder_text="Table Name",
+                                                      height=30,
+                                                      font=("arial", 18), width=300)
+        self.Search_Row_Data_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Search_Row_Data_Input2 = customtkinter.CTkEntry(master=self.Search_Row_Data_frame,
+                                                      placeholder_text="Row Id",
+                                                      height=30,
+                                                      font=("arial", 18))
+        self.Search_Row_Data_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Search_Row_Data_Btn = customtkinter.CTkButton(master=self.Search_Row_Data_frame, text="Search Row Data",
+                                                    font=("arial", 18),
+                                                    width=120, height=30, command=self.search_row_btn)
+        self.Search_Row_Data_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Search_Row_Data_result = customtkinter.CTkTextbox(master=self.Search_Row_Data_frame, wrap="none",
+                                                        corner_radius=0,
+                                                        border_width=0, font=("Terminal", 18))
+        self.Search_Row_Data_result.grid(row=1, column=0, columnspan=4, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Search_Row_Data_result.configure(state='disabled')
+
+        # Next Table Update Row Data Interface
+        self.Update_Row_Data_frame.grid_columnconfigure(2, weight=1)
+        self.Update_Row_Data_frame.grid_rowconfigure(1, weight=1)
+
+        self.Update_Row_Data_Input1 = customtkinter.CTkEntry(master=self.Update_Row_Data_frame,
+                                                         placeholder_text="Table Name",
+                                                         height=30,
+                                                         font=("arial", 18), width=200)
+        self.Update_Row_Data_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Row_Data_Input2 = customtkinter.CTkEntry(master=self.Update_Row_Data_frame,
+                                                         placeholder_text="Row Id",
+                                                         height=30,
+                                                         font=("arial", 18), width=200)
+        self.Update_Row_Data_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Row_Data_Input3 = customtkinter.CTkEntry(master=self.Update_Row_Data_frame,
+                                                         placeholder_text="New Data",
+                                                         height=30,
+                                                         font=("arial", 18))
+        self.Update_Row_Data_Input3.grid(row=0, column=2, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Update_Row_Data_Btn = customtkinter.CTkButton(master=self.Update_Row_Data_frame, text="Update Row Data",
+                                                       font=("arial", 18),
+                                                       width=120, height=30, command=self.update_row_btn)
+
+        self.Update_Row_Data_Btn.grid(row=0, column=4, padx=(20, 20), pady=(0, 0))
+
+        self.Update_Row_Data_result = customtkinter.CTkTextbox(master=self.Update_Row_Data_frame, wrap="none",
+                                                           corner_radius=0,
+                                                           border_width=0, font=("Terminal", 18))
+        self.Update_Row_Data_result.grid(row=1, column=0, columnspan=5, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Update_Row_Data_result.configure(state='disabled')
+
+        # Next Table Delete Row Data Interface
+        self.Delete_Row_frame.grid_columnconfigure(1, weight=1)
+        self.Delete_Row_frame.grid_rowconfigure(1, weight=1)
+
+        self.Delete_Row_Input1 = customtkinter.CTkEntry(master=self.Delete_Row_frame,
+                                                             placeholder_text="Table Name",
+                                                             height=30,
+                                                             font=("arial", 18), width=300)
+        self.Delete_Row_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Row_Input2 = customtkinter.CTkEntry(master=self.Delete_Row_frame,
+                                                        placeholder_text="Row Id",
+                                                        height=30,
+                                                        font=("arial", 18))
+        self.Delete_Row_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Row_Btn = customtkinter.CTkButton(master=self.Delete_Row_frame, text="Delete Row",
+                                                      font=("arial", 18),
+                                                      width=120, height=30, command=self.delete_row_btn)
+        self.Delete_Row_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Delete_Row_result = customtkinter.CTkTextbox(master=self.Delete_Row_frame, wrap="none",
+                                                          corner_radius=0,
+                                                          border_width=0, font=("Terminal", 18))
+        self.Delete_Row_result.grid(row=1, column=0, columnspan=4, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Delete_Row_result.configure(state='disabled')
+
+        # Next Table Search Column Data Interface
+        self.Search_Column_frame.grid_columnconfigure(1, weight=1)
+        self.Search_Column_frame.grid_rowconfigure(1, weight=1)
+
+        self.Search_Column_Input1 = customtkinter.CTkEntry(master=self.Search_Column_frame,
+                                                             placeholder_text="Table Name",
+                                                             height=30,
+                                                             font=("arial", 18), width=300)
+        self.Search_Column_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Search_Column_Input2 = customtkinter.CTkEntry(master=self.Search_Column_frame,
+                                                        placeholder_text="Column Name",
+                                                        height=30,
+                                                        font=("arial", 18))
+        self.Search_Column_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Search_Column_Btn = customtkinter.CTkButton(master=self.Search_Column_frame, text="Search Column Data",
+                                                      font=("arial", 18),
+                                                      width=120, height=30, command=self.search_col_btn)
+        self.Search_Column_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Search_Column_result = customtkinter.CTkTextbox(master=self.Search_Column_frame, wrap="none",
+                                                          corner_radius=0,
+                                                          border_width=0, font=("Terminal", 18))
+        self.Search_Column_result.grid(row=1, column=0, columnspan=4, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Search_Column_result.configure(state='disabled')
+
+        # Next Table Delete Column Interface
+        self.Delete_Column_frame.grid_columnconfigure(1, weight=1)
+        self.Delete_Column_frame.grid_rowconfigure(1, weight=1)
+
+        self.Delete_Column_Input1 = customtkinter.CTkEntry(master=self.Delete_Column_frame,
+                                                                placeholder_text="Table Name",
+                                                                height=30,
+                                                                font=("arial", 18), width=300)
+        self.Delete_Column_Input1.grid(row=0, column=0, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Column_Input2 = customtkinter.CTkEntry(master=self.Delete_Column_frame,
+                                                           placeholder_text="Column Name",
+                                                           height=30,
+                                                           font=("arial", 18))
+        self.Delete_Column_Input2.grid(row=0, column=1, columnspan=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+
+        self.Delete_Column_Btn = customtkinter.CTkButton(master=self.Delete_Column_frame,
+                                                         text="Delete Column",
+                                                         font=("arial", 18),
+                                                         width=120, height=30, command=self.delete_column_btn)
+        self.Delete_Column_Btn.grid(row=0, column=2, padx=(20, 20), pady=(0, 0))
+
+        self.Delete_Column_result = customtkinter.CTkTextbox(master=self.Delete_Column_frame, wrap="none",
+                                                             corner_radius=0,
+                                                             border_width=0, font=("Terminal", 18))
+        self.Delete_Column_result.grid(row=1, column=0, columnspan=4, padx=(20, 20), pady=(0, 20), sticky="nsew")
+
+        self.Delete_Column_result.configure(state='disabled')
 
         # Next Table <Enter Position>
         self.NextTable_button.bind("<Enter>", self.onPositionNextTable)
+        self.Create_Table_frame.bind("<Enter>", self.onLeave)
+        self.Create_Table_Input.bind("<Enter>", self.onLeave)
+        self.Create_Table_result.bind("<Enter>", self.onLeave)
+
+        self.Read_Table_frame.bind("<Enter>", self.onLeave)
+        self.Read_Table_Input.bind("<Enter>", self.onLeave)
+        self.Read_Table_result.bind("<Enter>", self.onLeave)
+
+        self.Delete_Table_frame.bind("<Enter>", self.onLeave)
+        self.Delete_Table_Input.bind("<Enter>", self.onLeave)
+        self.Delete_Table_result.bind("<Enter>", self.onLeave)
+
+        self.Add_Col_Name_frame.bind("<Enter>", self.onLeave)
+        self.Add_Col_Name_Input1.bind("<Enter>", self.onLeave)
+        self.Add_Col_Name_Input2.bind("<Enter>", self.onLeave)
+        self.Add_Col_Name_result.bind("<Enter>", self.onLeave)
+
+        self.Read_Col_Name_frame.bind("<Enter>", self.onLeave)
+        self.Read_Col_Name_Input.bind("<Enter>", self.onLeave)
+        self.Read_Col_Name_result.bind("<Enter>", self.onLeave)
+
+        self.Update_Col_Name_frame.bind("<Enter>", self.onLeave)
+        self.Update_Col_Name_Input1.bind("<Enter>", self.onLeave)
+        self.Update_Col_Name_Input2.bind("<Enter>", self.onLeave)
+        self.Update_Col_Name_Input3.bind("<Enter>", self.onLeave)
+        self.Update_Col_Name_result.bind("<Enter>", self.onLeave)
+
+        self.Delete_Col_Name_frame.bind("<Enter>", self.onLeave)
+        self.Delete_Col_Name_Input1.bind("<Enter>", self.onLeave)
+        self.Delete_Col_Name_Input2.bind("<Enter>", self.onLeave)
+        self.Delete_Col_Name_result.bind("<Enter>", self.onLeave)
+
+        self.Add_Data_frame.bind("<Enter>", self.onLeave)
+        self.Add_Data_Input1.bind("<Enter>", self.onLeave)
+        self.Add_Data_Input2.bind("<Enter>", self.onLeave)
+        self.Add_Data_result.bind("<Enter>", self.onLeave)
+
+        self.Search_Data_frame.bind("<Enter>", self.onLeave)
+        self.Search_Data_Input1.bind("<Enter>", self.onLeave)
+        self.Search_Data_Input2.bind("<Enter>", self.onLeave)
+        self.Search_Data_Input3.bind("<Enter>", self.onLeave)
+        self.Search_Data_result.bind("<Enter>", self.onLeave)
+
+        self.Update_Data_frame.bind("<Enter>", self.onLeave)
+        self.Update_Data_Input1.bind("<Enter>", self.onLeave)
+        self.Update_Data_Input2.bind("<Enter>", self.onLeave)
+        self.Update_Data_Input3.bind("<Enter>", self.onLeave)
+        self.Update_Data_Input4.bind("<Enter>", self.onLeave)
+        self.Update_Data_result.bind("<Enter>", self.onLeave)
+
+        self.Delete_Data_frame.bind("<Enter>", self.onLeave)
+        self.Delete_Data_Input1.bind("<Enter>", self.onLeave)
+        self.Delete_Data_Input2.bind("<Enter>", self.onLeave)
+        self.Delete_Data_Input3.bind("<Enter>", self.onLeave)
+        self.Delete_Data_result.bind("<Enter>", self.onLeave)
+
+        self.Search_Row_Data_frame.bind("<Enter>", self.onLeave)
+        self.Search_Row_Data_Input1.bind("<Enter>", self.onLeave)
+        self.Search_Row_Data_Input2.bind("<Enter>", self.onLeave)
+        self.Search_Row_Data_result.bind("<Enter>", self.onLeave)
+
+        self.Update_Row_Data_frame.bind("<Enter>", self.onLeave)
+        self.Update_Row_Data_Input1.bind("<Enter>", self.onLeave)
+        self.Update_Row_Data_Input2.bind("<Enter>", self.onLeave)
+        self.Update_Row_Data_Input3.bind("<Enter>", self.onLeave)
+        self.Update_Row_Data_result.bind("<Enter>", self.onLeave)
+
+        self.Delete_Row_frame.bind("<Enter>", self.onLeave)
+        self.Delete_Row_Input1.bind("<Enter>", self.onLeave)
+        self.Delete_Row_Input2.bind("<Enter>", self.onLeave)
+        self.Delete_Row_result.bind("<Enter>", self.onLeave)
+
+        self.Search_Column_frame.bind("<Enter>", self.onLeave)
+        self.Search_Column_Input1.bind("<Enter>", self.onLeave)
+        self.Search_Column_Input2.bind("<Enter>", self.onLeave)
+        self.Search_Column_result.bind("<Enter>", self.onLeave)
+
+        self.Delete_Column_frame.bind("<Enter>", self.onLeave)
+        self.Delete_Column_Input1.bind("<Enter>", self.onLeave)
+        self.Delete_Column_Input2.bind("<Enter>", self.onLeave)
+        self.Delete_Column_result.bind("<Enter>", self.onLeave)
 
         self.Home_frame.bind("<Enter>", self.onLeave)
 
@@ -482,6 +1037,166 @@ class App(customtkinter.CTk):
             else:
                 self.NextDatabase_delete_result.insert("0.0", returnValue)
                 self.NextDatabase_delete_result.configure(state='disabled')
+        elif name == "create_table":
+            returnValue = NextTable.create_table(self.Create_Table_Input.get())
+            self.Create_Table_result.configure(state='normal')
+            self.Create_Table_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Create_Table_result.insert("0.0", "Successful!")
+                self.Create_Table_result.configure(state='disabled')
+            else:
+                self.Create_Table_result.insert("0.0", returnValue)
+                self.Create_Table_result.configure(state='disabled')
+
+        elif name == "read_table":
+            returnValue = NextTable.read_table(self.Read_Table_Input.get())
+            self.Read_Table_result.configure(state='normal')
+            self.Read_Table_result.delete("1.0", "end")
+            if returnValue is None:
+                self.Read_Table_result.insert("0.0", "Empty Table")
+                self.Read_Table_result.configure(state='disabled')
+            else:
+                self.Read_Table_result.insert("0.0", returnValue)
+                self.Read_Table_result.configure(state='disabled')
+
+        elif name == "delete_table":
+            returnValue = NextTable.delete_table(self.Delete_Table_Input.get())
+            self.Delete_Table_result.configure(state='normal')
+            self.Delete_Table_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Delete_Table_result.insert("0.0", "Successful!")
+                self.Delete_Table_result.configure(state='disabled')
+            else:
+                self.Delete_Table_result.insert("0.0", returnValue)
+                self.Delete_Table_result.configure(state='disabled')
+
+        elif name == "add_column_name":
+            returnValue = NextTable.add_col_name(self.Add_Col_Name_Input1.get(), self.Add_Col_Name_Input2.get())
+            self.Add_Col_Name_result.configure(state='normal')
+            self.Add_Col_Name_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Add_Col_Name_result.insert("0.0", "Successful!")
+                self.Add_Col_Name_result.configure(state='disabled')
+            else:
+                self.Add_Col_Name_result.insert("0.0", returnValue)
+                self.Add_Col_Name_result.configure(state='disabled')
+
+        elif name == "read_column_name":
+            returnValue = NextTable.read_col_name(self.Read_Col_Name_Input.get())
+            self.Read_Col_Name_result.configure(state='normal')
+            self.Read_Col_Name_result.delete("1.0", "end")
+            if returnValue is None:
+                self.Read_Col_Name_result.insert("0.0", "Empty Table")
+                self.Read_Col_Name_result.configure(state='disabled')
+            else:
+                self.Read_Col_Name_result.insert("0.0", returnValue)
+                self.Read_Col_Name_result.configure(state='disabled')
+
+        elif name == "update_column_name":
+            returnValue = NextTable.update_col_data(self.Update_Col_Name_Input1.get(), self.Update_Col_Name_Input2.get(), self.Update_Col_Name_Input3.get())
+            self.Update_Col_Name_result.configure(state='normal')
+            self.Update_Col_Name_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Update_Col_Name_result.insert("0.0", "Successful!")
+                self.Update_Col_Name_result.configure(state='disabled')
+            else:
+                self.Update_Col_Name_result.insert("0.0", returnValue)
+                self.Update_Col_Name_result.configure(state='disabled')
+
+        elif name == "delete_column_name":
+            returnValue = NextTable.delete_col_name(self.Delete_Col_Name_Input1.get(), self.Delete_Col_Name_Input2.get())
+            self.Delete_Col_Name_result.configure(state='normal')
+            self.Delete_Col_Name_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Delete_Col_Name_result.insert("0.0", "Successful!")
+                self.Delete_Col_Name_result.configure(state='disabled')
+            else:
+                self.Delete_Col_Name_result.insert("0.0", returnValue)
+                self.Delete_Col_Name_result.configure(state='disabled')
+        elif name == "add_data":
+            returnValue = NextTable.add_data(self.Add_Data_Input1.get(), self.Add_Data_Input2.get())
+            self.Add_Data_result.configure(state='normal')
+            self.Add_Data_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Add_Data_result.insert("0.0", "Successful!")
+                self.Add_Data_result.configure(state='disabled')
+            else:
+                self.Add_Data_result.insert("0.0", returnValue)
+                self.Add_Data_result.configure(state='disabled')
+
+        elif name == "search_data":
+            returnValue = NextTable.search_data(self.Search_Data_Input1.get(), self.Search_Data_Input2.get(), self.Search_Data_Input3.get())
+            self.Search_Data_result.configure(state='normal')
+            self.Search_Data_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Search_Data_result.insert("0.0", "Successful!")
+                self.Search_Data_result.configure(state='disabled')
+            else:
+                self.Search_Data_result.insert("0.0", returnValue)
+                self.Search_Data_result.configure(state='disabled')
+
+        elif name == "delete_data":
+            returnValue = NextTable.delete_data(self.Delete_Data_Input1.get(), self.Delete_Data_Input2.get(), self.Delete_Data_Input3.get())
+            self.Delete_Data_result.configure(state='normal')
+            self.Delete_Data_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Delete_Data_result.insert("0.0", "Successful!")
+                self.Delete_Data_result.configure(state='disabled')
+            else:
+                self.Delete_Data_result.insert("0.0", returnValue)
+                self.Delete_Data_result.configure(state='disabled')
+
+        elif name == "search_row":
+            returnValue = NextTable.search_row_data(self.Search_Row_Data_Input1.get(), self.Search_Row_Data_Input2.get())
+            self.Search_Row_Data_result.configure(state='normal')
+            self.Search_Row_Data_result.delete("1.0", "end")
+            self.Search_Row_Data_result.insert("0.0", returnValue)
+            self.Search_Row_Data_result.configure(state='disabled')
+
+        elif name == "update_row":
+            returnValue = NextTable.update_row(self.Update_Row_Data_Input1.get(), self.Update_Row_Data_Input2.get(), self.Update_Row_Data_Input3.get())
+            self.Update_Row_Data_result.configure(state='normal')
+            self.Update_Row_Data_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Update_Row_Data_result.insert("0.0", "Successful!")
+                self.Update_Row_Data_result.configure(state='disabled')
+            else:
+                self.Update_Row_Data_result.insert("0.0", returnValue)
+                self.Update_Row_Data_result.configure(state='disabled')
+
+        elif name == "delete_row":
+            returnValue = NextTable.delete_row(self.Delete_Row_Input1.get(), self.Delete_Row_Input1.get())
+            self.Delete_Row_result.configure(state='normal')
+            self.Delete_Row_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Delete_Row_result.insert("0.0", "Successful!")
+                self.Delete_Row_result.configure(state='disabled')
+            else:
+                self.Delete_Row_result.insert("0.0", returnValue)
+                self.Delete_Row_result.configure(state='disabled')
+
+        elif name == "search_column":
+            returnValue = NextTable.search_col_data(self.Search_Column_Input1.get(), self.Search_Column_Input2.get())
+            self.Search_Column_result.configure(state='normal')
+            self.Search_Column_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Search_Column_result.insert("0.0", "Successful!")
+                self.Search_Column_result.configure(state='disabled')
+            else:
+                self.Search_Column_result.insert("0.0", returnValue)
+                self.Search_Column_result.configure(state='disabled')
+
+        elif name == "delete_column":
+            returnValue = NextTable.delete_col(self.Delete_Column_Input1.get(), self.Delete_Column_Input2.get())
+            self.Delete_Column_result.configure(state='normal')
+            self.Delete_Column_result.delete("1.0", "end")
+            if returnValue == "true":
+                self.Delete_Column_result.insert("0.0", "Successful!")
+                self.Delete_Column_result.configure(state='disabled')
+            else:
+                self.Delete_Column_result.insert("0.0", returnValue)
+                self.Delete_Column_result.configure(state='disabled')
+
 
     def category_selection(self, name):
         if name == "Add":
@@ -509,6 +1224,102 @@ class App(customtkinter.CTk):
             self.Delete_frame.grid(row=1, column=0, sticky="nsew")
         else:
             self.Delete_frame.grid_forget()
+
+        if name == "Create_Table":
+            self.select_frame_by_name("")
+            self.Create_Table_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Create_Table_frame.grid_forget()
+
+        if name == "Read_Table":
+            self.select_frame_by_name("")
+            self.Read_Table_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Read_Table_frame.grid_forget()
+
+        if name == "Delete_Table":
+            self.select_frame_by_name("")
+            self.Delete_Table_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Delete_Table_frame.grid_forget()
+
+        if name == "Add_Column_Name":
+            self.select_frame_by_name("")
+            self.Add_Col_Name_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Add_Col_Name_frame.grid_forget()
+
+        if name == "Read_Column_Name":
+            self.select_frame_by_name("")
+            self.Read_Col_Name_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Read_Col_Name_frame.grid_forget()
+
+        if name == "Update_Column_Name":
+            self.select_frame_by_name("")
+            self.Update_Col_Name_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Update_Col_Name_frame.grid_forget()
+
+        if name == "Delete_Column_Name":
+            self.select_frame_by_name("")
+            self.Delete_Col_Name_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Delete_Col_Name_frame.grid_forget()
+
+        if name == "Add_Data":
+            self.select_frame_by_name("")
+            self.Add_Data_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Add_Data_frame.grid_forget()
+
+        if name == "Search_Data":
+            self.select_frame_by_name("")
+            self.Search_Data_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Search_Data_frame.grid_forget()
+
+        if name == "Update_Data":
+            self.select_frame_by_name("")
+            self.Update_Data_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Update_Data_frame.grid_forget()
+
+        if name == "Delete_Data":
+            self.select_frame_by_name("")
+            self.Delete_Data_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Delete_Data_frame.grid_forget()
+
+        if name == "Search_Row":
+            self.select_frame_by_name("")
+            self.Search_Row_Data_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Search_Row_Data_frame.grid_forget()
+
+        if name == "Update_Row":
+            self.select_frame_by_name("")
+            self.Update_Row_Data_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Update_Row_Data_frame.grid_forget()
+
+        if name == "Delete_Row":
+            self.select_frame_by_name("")
+            self.Delete_Row_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Delete_Row_frame.grid_forget()
+
+        if name == "Search_Column":
+            self.select_frame_by_name("")
+            self.Search_Column_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Search_Column_frame.grid_forget()
+
+        if name == "Delete_Column":
+            self.select_frame_by_name("")
+            self.Delete_Column_frame.grid(row=1, column=0, sticky="nsew")
+        else:
+            self.Delete_Column_frame.grid_forget()
 
     def AddBtn(self):
         self.category_selection("Add")
@@ -544,6 +1355,120 @@ class App(customtkinter.CTk):
     def deleteBtn(self):
         if self.Delete_Input.get() != "":
             self.databaseCheckBtn("delete")
+
+    def Create_Table_Btn(self):
+        self.category_selection("Create_Table")
+
+    def create_table_btn(self):
+        if self.Create_Table_Input.get() != "":
+            self.databaseCheckBtn("create_table")
+
+    def Read_Table_Btn(self):
+        self.category_selection("Read_Table")
+
+    def read_table_btn(self):
+        if self.Read_Table_Input.get() != "":
+            self.databaseCheckBtn("read_table")
+
+    def delete_table_btn(self):
+        if self.Delete_Table_Input.get() != "":
+            self.databaseCheckBtn("delete_table")
+
+    def Delete_Table_Btn(self):
+        self.category_selection("Delete_Table")
+
+    def Add_Col_Name_Btn(self):
+        self.category_selection("Add_Column_Name")
+
+    def add_col_name_btn(self):
+        if self.Add_Col_Name_Input1.get() != "" and self.Add_Col_Name_Input2.get() != "":
+            self.databaseCheckBtn("add_column_name")
+
+    def Read_Col_Name_Btn(self):
+        self.category_selection("Read_Column_Name")
+
+    def read_col_name_btn(self):
+        if self.Read_Col_Name_Input.get() != "":
+            self.databaseCheckBtn("read_column_name")
+
+    def Update_Col_Name_Btn(self):
+        self.category_selection("Update_Column_Name")
+
+    def update_col_name_btn(self):
+        if self.Update_Col_Name_Input1.get() != "" and self.Update_Col_Name_Input2.get() != "" and self.Update_Col_Name_Input3.get() != "":
+            self.databaseCheckBtn("update_column_name")
+
+    def Delete_Col_Name_Btn(self):
+        self.category_selection("Delete_Column_Name")
+
+    def delete_col_name_btn(self):
+        if self.Delete_Col_Name_Input1.get() != "" and self.Delete_Col_Name_Input2.get() != "":
+            self.databaseCheckBtn("delete_column_name")
+
+    def Add_Data_Btn(self):
+        self.category_selection("Add_Data")
+
+    def add_data_btn(self):
+        if self.Add_Data_Input1.get() != "" and self.Add_Data_Input2.get() != "":
+            self.databaseCheckBtn("add_data")
+
+    def Search_Data_Btn(self):
+        self.category_selection("Search_Data")
+
+    def search_data_btn(self):
+        if self.Search_Data_Input1.get() != "" and self.Search_Data_Input2.get() != "" and self.Search_Data_Input3.get() != "":
+            self.databaseCheckBtn("search_data")
+
+    def Update_Data_Btn(self):
+        self.category_selection("Update_Data")
+
+    def update_data_btn(self):
+        if self.Update_Data_Input1.get() != "" and self.Update_Data_Input2.get() != "" and self.Update_Data_Input3.get() != "" and self.Update_Data_Input4.get() != "":
+            self.databaseCheckBtn("update_data")
+
+    def Delete_Data_Btn(self):
+        self.category_selection("Delete_Data")
+
+    def delete_data_btn(self):
+        if self.Delete_Data_Input1.get() != "" and self.Delete_Data_Input2.get() != "" and self.Delete_Data_Input3.get() != "":
+            self.databaseCheckBtn("delete_data")
+
+    def Search_Row_Btn(self):
+        self.category_selection("Search_Row")
+
+    def search_row_btn(self):
+        if self.Search_Row_Data_Input1.get() != "" and self.Search_Row_Data_Input2.get() != "":
+            self.databaseCheckBtn("search_row")
+
+    def Update_Row_Btn(self):
+        self.category_selection("Update_Row")
+
+    def update_row_btn(self):
+        if self.Update_Row_Data_Input1.get() != "" and self.Update_Row_Data_Input2.get() != "" and self.Update_Row_Data_Input3.get() != "":
+            self.databaseCheckBtn("update_row")
+
+    def Delete_Row_Btn(self):
+        self.category_selection("Delete_Row")
+
+    def delete_row_btn(self):
+        if self.Delete_Row_Input1.get() != "" and self.Delete_Row_Input2.get() != "":
+            self.databaseCheckBtn("delete_row")
+
+    def Search_Col_Btn(self):
+        self.category_selection("Search_Column")
+
+    def search_col_btn(self):
+        if self.Search_Column_Input1.get() != "" and self.Search_Column_Input2.get() != "":
+            self.databaseCheckBtn("search_column")
+
+    def Delete_Col_Btn(self):
+        self.category_selection("Delete_Column")
+
+    def delete_column_btn(self):
+        if self.Delete_Column_Input1.get() != "" and self.Delete_Column_Input2.get() != "":
+            self.databaseCheckBtn("delete_column")
+
+
 
 
 if __name__ == "__main__":
